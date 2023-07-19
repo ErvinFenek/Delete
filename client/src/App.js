@@ -5,7 +5,6 @@ import {Context} from "./index";
 import {check} from "./http/userApi";
 import Spinner from "react-bootstrap/Spinner";
 
-
 const  App = observer(() => {
     const {user} = useContext(Context);
     const [loading, setLoading] = useState(true);
@@ -15,6 +14,7 @@ const  App = observer(() => {
             user.setUser(true)
             user.setIsAuth(true)
         }).finally(() => setLoading(false))
+
     }, [])
     if(loading) {
         return <Spinner animation={"grow"}/>
