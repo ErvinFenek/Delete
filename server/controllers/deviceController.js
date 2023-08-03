@@ -20,48 +20,43 @@ class DeviceController {
                         title: i.title,
                         description: i.description,
                         deviceId: device.id,
-
                     })
                 )
             }
-
-
             return res.json(device);
         } catch (e) {
             next(ApiError.badRequest(e.message))
         }
-        
-
     }
 
     async getAll(req, res) {
         let {
             brandId,
             typeId,
-            // limit,
-            // page
+            limit,
+            page
         } = req.query;
-        // page = page || 2;
-        // limit = limit || 2;
-        // let offset = page * limit - limit;
+        page = page || 2;
+        limit = limit || 2;
+        let offset = page * limit - limit;
         let devices;
         if (!brandId && !typeId) {
-            // devices = await Device.findAndCountAll({limit, offset})
-            devices = await Device.findAll()
+            devices = await Device.findAndCountAll({limit, offset})
+            // devices = await Device.findAll()
         }
         if (brandId && !typeId) {
             devices = await Device.findAndCountAll({where: {brandId}
-            // , limit, offset
+            , limit, offset
             })
         }
         if (!brandId && typeId) {
             devices = await Device.findAndCountAll({where: {typeId}
-            // , limit, offset
+            , limit, offset
             })
         }
         if (brandId && typeId) {
             devices = await Device.findAndCountAll({where: {brandId, typeId}
-            // , limit, offset
+            , limit, offset
             })
         }
         return res.json(devices);

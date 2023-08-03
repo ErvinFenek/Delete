@@ -14,7 +14,6 @@ const  App = observer(() => {
             user.setUser(true)
             user.setIsAuth(true)
         }).finally(() => setLoading(false))
-
     }, [])
     if(loading) {
         return <Spinner animation={"grow"}/>

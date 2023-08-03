@@ -6,14 +6,16 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Button from "react-bootstrap/Button";
 import {observer} from "mobx-react-lite";
-import {useNavigate} from 'react-router-dom'
+import {useNavigate} from 'react-router-dom';
 
 const NavigBar = observer(() => {
     const navigate = useNavigate();
     const {user} = useContext(Context);
+
     const logOut = () => {
-        user.setUser({});
+        user.setUser({})
         user.setIsAuth(false)
+        localStorage.setItem('token', '')
     }
     return (
         <Navbar bg="dark" data-bs-theme="dark">

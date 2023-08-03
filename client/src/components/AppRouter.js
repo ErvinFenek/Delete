@@ -10,8 +10,8 @@ import Shop from "../pages/Shop";
 import Auth from "../pages/Auth";
 import DevicePage from "../pages/DevicePage";
 
-const authRouter = createBrowserRouter([
-    {
+const authRouter = [
+        {
         path: ROUTES.ADMIN,
         element: <Admin/>
     },
@@ -27,8 +27,12 @@ const authRouter = createBrowserRouter([
         path: ROUTES.LOGIN,
         element: <Auth/>,
     },
-])
-const publicRouter = createBrowserRouter([
+    {
+        path: ROUTES.DEVICE + '/:id',
+        element: <DevicePage/>,
+    },
+];
+const publicRouter = [
     {
         path: ROUTES.HOME,
         element: <Shop/>,
@@ -53,16 +57,13 @@ const publicRouter = createBrowserRouter([
         path: "*",
         element: <Shop/>
     }
-])
-
+]
 const AppRouter = () => {
     const {user} = useContext(Context)
-    return (
-        <>
-        {user.isAuth && <RouterProvider router={authRouter}/>}
-        {!user.isAuth && <RouterProvider router={publicRouter}/>}
+    const router = user.isAuth ? [...publicRouter, ...authRouter] : publicRouter;
 
-        </>
+    return (
+        <RouterProvider router={createBrowserRouter(router)}/>
     );
 };
 

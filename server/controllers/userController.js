@@ -44,7 +44,10 @@ class UserController {
     }
 
     async check(req, res, next) {
-        const token = generateJwt(req.user.id, req.user.email, req.user.role)
+        const token = await generateJwt(req.user.id, req.user.email, req.user.role)
+        if (!token) {
+            return next(ApiError.notAuthorised("Пользователь не авторизован"))
+        }
         return res.json({token})
     }
 }

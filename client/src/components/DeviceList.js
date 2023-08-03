@@ -13,7 +13,6 @@ const DeviceList = observer(() => {
             {device.devices.map(device =>
                 <DeviceItem key={device.id} device={device}/>
             )}
-            
         </Row>
     );
 });
